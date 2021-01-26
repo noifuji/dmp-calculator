@@ -6,7 +6,8 @@
   "scripts": {
     "tsc": "tsc",
     "build": "webpack",
-    "test": "jest"
+    "test": "jest",
+    "deploy": "aws s3 cp ./dist s3://dmp-game-charge-calculator --recursive"
   },
   "author": "",
   "license": "ISC",

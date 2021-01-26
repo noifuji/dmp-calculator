@@ -1,6 +1,8 @@
 import { Card } from "../entity/Card";
 
 export interface CardRepository{
-    findById(id:string):Promise<Card|undefined>;
+    initRepo(): void;
+    findById(id:string):Promise<Card>;
     insert(card: Card):void;
+    insertBulk(cards: Card[]):void;
 }
