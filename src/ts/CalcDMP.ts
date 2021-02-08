@@ -5,18 +5,23 @@ import { Card } from "./entity/Card";
 
 export class CalcDMP {
   private str_main_html: string =
-    '<div class="main">' +
-    '<div class="form_deck_url">' +
-    '<div class="deck_url_list">' +
-    '<input class="url_entry" type="text">' +
-    '<input class="url_entry" type="text">' +
-    '<input class="url_entry" type="text">' +
+    '<div class="calcdeck_main">' +
+    '<div class="calcdeck_form_deck_url">' +
+    '<div class="calcdeck_deck_url_list">' +
+    '<div>' +
+    '<input class="calcdeck_url_entry" type="text">' +
     "</div>" +
-    '<button class="button_submit_deck_url">Calcurate DMP</button>' +
     "</div>" +
-    '<div class="result">' +
-    '<div id="result_summary"></div>' +
-    '<div id="result_card_list"></div>' +
+    '<div>' +
+    '<button class="calcdeck_add_url_entry">+</button>' +
+    '</div>' +
+    '<div>' +
+    '<button class="calcdeck_button_submit_deck_url">Calcurate DMP</button>' +
+    '</div>' +
+    "</div>" +
+    '<div class="calcdeck_result">' +
+    '<div id="calcdeck_result_summary"></div>' +
+    '<div id="calcdeck_result_card_list"></div>' +
     "</div>" +
     "</div>";
 
@@ -33,23 +38,60 @@ export class CalcDMP {
   }
 
   onStart() {
-    let submitBtns = this.doc.getElementsByClassName("button_submit_deck_url");
+    const submitBtns = this.doc.querySelector(".calcdeck_button_submit_deck_url");
     if (!!submitBtns) {
-      for (let i = 0; i < submitBtns.length; i++) {
-        submitBtns[i].addEventListener("click", (e: Event) =>
+        submitBtns.addEventListener("click", (e: Event) =>
           this.onClickSubmitBtn(e)
         );
-      }
+    }
+    
+    const addUrlEntryBtn = this.doc.querySelector(".calcdeck_add_url_entry");
+    if (!!addUrlEntryBtn) {
+        addUrlEntryBtn.addEventListener("click", (e: Event) =>
+          this.onAddUrlEntryBtn(e)
+        );
     }
 
     this.repo.initRepo();
+  }
+  
+  onAddUrlEntryBtn(e: Event) {
+    const urlList = this.doc.querySelector(".calcdeck_deck_url_list");
+    if(!!urlList) {
+    const div = this.doc.createElement("div");
+    const urlEntry = this.doc.createElement("input");
+    urlEntry.classList.add("calcdeck_url_entry");
+    urlEntry.setAttribute("type", "text");
+    const delUrlEntry = this.doc.createElement("button");
+    delUrlEntry.classList.add("calcdeck_del_url_entry");
+    delUrlEntry.textContent = "-";
+    delUrlEntry.addEventListener("click", (e:Event)=> {
+      this.onClickDelUrlEntry(e);
+    });
+    div.appendChild(urlEntry);
+    div.appendChild(delUrlEntry);
+    urlList.appendChild(div);
+    }
+  }
+  
+  onClickDelUrlEntry(e:Event) {
+    if(!e.target) {
+      return;
+    }
+    
+    const urlEntry = (<HTMLElement>e.target).parentElement;
+    if(!urlEntry) {
+      return;
+    }
+    
+    urlEntry.remove();
   }
 
   async onClickSubmitBtn(e: Event) {
     //入力されたURLのチェック
     let urlInputElements = Array.from(
       this.doc.getElementsByClassName(
-        "url_entry"
+        "calcdeck_url_entry"
       ) as HTMLCollectionOf<HTMLInputElement>
     );
     if (!urlInputElements) {
@@ -130,7 +172,7 @@ export class CalcDMP {
       return accu + gen * curr.num;
     }, 0);
 
-    let resultDivs = this.doc.getElementById("result_summary");
+    let resultDivs = this.doc.getElementById("calcdeck_result_summary");
     if (!!resultDivs) {
       resultDivs.innerHTML = String(requiredDmp);
     }
@@ -173,7 +215,7 @@ export class CalcDMP {
       tbodyElement.appendChild(rowElement.getElementsByTagName("tr")[0]);
     }
 
-    const resultElement = this.doc.getElementById("result_card_list");
+    const resultElement = this.doc.getElementById("calcdeck_result_card_list");
     if (!!resultElement) {
       //一旦消す
       while (resultElement.firstChild) {

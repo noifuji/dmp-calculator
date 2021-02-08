@@ -6,7 +6,7 @@ module.exports = {
 mode: 'development', // "production" | "development" | "none"
 
 // メインとなるJavaScriptファイル（エントリーポイント）
-entry: './ts/index.ts',
+entry: './src/ts/index.ts',
 
 output: {
     path: path.join(__dirname, "dist"),
