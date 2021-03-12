@@ -1,0 +1,155 @@
+
+$background_color: #121212;
+$overlay_color: rgba(255, 255, 255, 0.16);
+$text_color_high: rgba(255, 255, 255, 0.87);
+$text_color_medium: rgba(255, 255, 255, 0.60);
+$primary_color:#ce93d8;
+$accent_color:#9c27b0;
+
+.dialogContainer {
+    /* Form */
+    width: 280px;
+    height: auto;
+    -webkit-box-shadow: 0 -2px 25px 0 rgba(0, 0, 0, 0.15), 0 13px 25px 0 rgba(0, 0, 0, 0.3);
+    background-color: $background_color;
+    /* Internal padding */
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    /* External padding */
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+}
+
+.dialogContent {
+    /* Form */
+    width: auto;
+    height: auto;
+    background-color: $overlay_color;
+    /* Corner radius */
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    /* Internal padding */
+    padding-top: 21px;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-bottom: 12px;
+    /* External padding */
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+
+.dialogContentTitle {
+    /* Typography */
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    color: $text_color_high;
+    line-height: 24px;
+    text-align: left;
+    letter-spacing: 0.03px;
+    /* Internal padding */
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    /* External padding */
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+
+.dialogContentBody {
+    /* Typography */
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: $text_color_medium;
+    line-height: 24px;
+    text-align: left;
+    letter-spacing: 0.03px;
+    /* Internal padding */
+    padding-top: 14px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    /* External padding */
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+
+.dialogActionBar {
+    /* Form */
+    width: auto;
+    height: 48px;
+    background-color: $overlay_color;
+    text-align: right;
+    /* Corner radius */
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+    /* Internal padding */
+    padding-top: 0;
+    padding-left: 16px;
+    padding-right: 15px;
+    padding-bottom: 8px;
+    /* External padding */
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+
+/*
+The attributes below style the
+hit target.
+*/
+
+.buttonTouchTarget {
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0);
+    /* Remove grey background on link clicked in ios safari */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/*
+The attributes below style the
+flat button based on the Google
+material design language.
+*/
+
+.buttonFlat {
+    /* Form */
+    display: inline-block;
+    height: 36px;
+    background-color: rgba(9, 9, 9, 0);
+    /* Typography */
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: $primary_color;
+    line-height: 36px;
+    text-align: center;
+    letter-spacing: 0.4px;
+    /* Internal padding */
+    padding-top: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-bottom: 0;
+    /* External padding – Touch target size */
+    margin-top: 6px;
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-bottom: 6px;
+}

@@ -4,24 +4,14 @@ require("fake-indexeddb/auto");
 
 test('test', async () => {
     let repo = new CardRepositoryImpl();
-    repo.insert(new Card(
-      "1000",
-      "test",
-      "race",
-      "type",
-      "rarity",
-      0,
-      "power",
-      0,
-      "text",
-      "flavor",
-      0,
-      0,
-      true
-    ));
+    repo.insert(newFunction());
     
     let card:Card|undefined = await repo.findById("1000");
     
     
     expect("test").toBe(card!.name);
 });
+
+function newFunction(): Card {
+    return new Card("1000", "test", "race", "type", "闇", "rarity", 0, "power", 0, "text", "flavor", 0, 0, "DMPP8",true);
+}

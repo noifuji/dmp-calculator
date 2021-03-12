@@ -2,6 +2,15 @@ import { Card } from "../entity/Card";
 import { Deck } from "../entity/Deck";
 import { CardRepository } from "./CardRepository";
 
+/**
+ * CardMaster
+ * 
+ * -getCardById(id)
+ * カードidからカードオブジェクトを取得する。
+ * 
+ * -getCardsById(ids)
+ * カードidのリストすらカードオブジェクトのリストを取得する。
+ */
 export class GetTotalRequiredCards {
   private repo: CardRepository;
 

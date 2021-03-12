@@ -1,45 +1,385 @@
+@import url(https://fonts.googleapis.com/earlyaccess/notosansjp.css);
+@import 'modal.scss';
+
+$breakpoints: ( 'sm': 'screen and (min-width: 576px)',
+'md': 'screen and (min-width: 768px)',
+'lg': 'screen and (min-width: 992px)',
+'xl': 'screen and (min-width: 1200px)',
+) !default;
+
+$header_height: 50px;
+$navbar_height: 70px;
+$social_height: 40px;
+$calcdeck_url_entry_height: 35px;
+$calcdeck_result_summary_height: 0px;
+$md-chip-height: 32px;
+$md-chip-color: #e0e0e0;
+$background_color: #121212;
+$text_color_high: rgba(255, 255, 255, 0.87);
+$text_color_medium: rgba(255, 255, 255, 0.60);
+$primary_color:#ce93d8;
+$accent_color:#9c27b0;
+
+@mixin mq($breakpoint: md) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+
+
 html {
   height: 100%;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 300;
+  font-size: 100%;
+  background-color: $background_color;
+  color: $text_color_high;
+  caret-color: $text_color_high;
 }
 
 body {
   margin: 0;
+  padding: 0;
+  min-height: 100%;
+  height: 100%;
+}
+
+.container {
   min-height: 100vh;
-  height:100%;
-  display: flex;
-  flex-direction: column;
+  height: 100%;
 }
 
 .header_container {
-  height: 150px;
-  padding: 1px;
-  border: 1px solid;
-  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: $header_height;
+  color: $text_color_high;
+  padding-left: 20px;
+  align-items: center;
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.05);
+
+  .site_title {
+    font-size: 20px;
+  }
+
+  #icon_help {
+    fill: $text_color_high;
+    margin-left: auto;
+    margin-right: 20px;
+  }
+
+  #icon_share {
+    fill: $text_color_high;
+    margin-right: 20px;
+  }
 }
 
 .main_container {
-  flex: 1;
-  display:flex;
-  width: 800px;
-  margin: auto;
-  
-  .socials {
-    text-align : right;
+  position: fixed;
+  top: 50px;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+
+  @include mq() {
+    width: 768px;
+    margin: auto;
+    flex-direction: row;
   }
 
+
   .menu_box {
-    width: 250px;
-    height: 100%;
-    border: 1px solid;
-    float: left;
+    width: 100%;
+    height: $navbar_height;
+    display: flex;
+    flex-wrap: wrap;
+    position: fixed;
+    bottom: 0;
+    background-color: $background_color;
+
+    @include mq() {
+      width: 150px;
+      height: 100%;
+      display: block;
+      flex-wrap: none;
+      position: relative;
+      background-color: rgba(255, 255, 255, 0);
+    }
+
+    .menu_tab {
+      width: 100%;
+      flex: 1;
+      padding: 3px 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.1);
+      @include mq() {
+        background-color: rgba(255, 255, 255, 0);
+      }
+    }
+
+    .menu_tab.selected {
+      background-color: rgba(255, 255, 255, 0.16);
+    }
+
   }
 
   .contents_box {
-    flex:1;
+    flex: 1;
     height: 100%;
-    border: 1px solid;
-    float: left;
-    text-align: center;
+
+    .page {
+      height: 100%;
+      .calcdeck_main {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .calcdeck_url_entry_container {
+          display: flex;
+          width: 100%;
+          height: auto;
+          border: 0;
+          border-bottom: 1px solid $accent_color;
+          outline: 0;
+          padding: 7px 5px;
+          background: transparent;
+          transition: border-color 0.2s;
+
+          .calcdeck_url_entry_label {
+            flex-basis: 70px;
+            font-size: small;
+            flex-shrink: 0;
+            position: relative;
+            color: $text_color_high;
+
+            label {
+              bottom: 0;
+              position: absolute;
+            }
+          }
+
+          .calcaccount_entry_label {
+            flex-basis: 120px;
+            font-size: small;
+            flex-shrink: 0;
+            position: relative;
+            color: $text_color_high;
+
+            label {
+              bottom: 0;
+              position: absolute;
+            }
+          }
+
+          .calcdeck_url_entry_input {
+            display: flex;
+            -webkit-flex-grow: 1;
+            flex-grow: 1;
+            flex-wrap: wrap;
+            /*overflow-y: scroll;*/
+            .calcdeck_url_entry_text {
+              border: 0;
+              outline: none;
+              height: 20px;
+              -webkit-flex-grow: 1;
+              flex-grow: 1;
+              font-size: 17px;
+              width: 10px;
+              resize: none;
+              overflow: hidden;
+              color: $text_color_high;
+            }
+          }
+        }
+
+        .calcdeck_result {
+          overflow: auto;
+
+          #calcdeck_result_summary {
+            height: $calcdeck_result_summary_height
+          }
+
+          #calcdeck_result_card_list {
+            padding-bottom: $navbar_height;
+            @include mq() {
+              padding-bottom: 0px;
+            }
+            li {
+              display: flex;
+              padding-top: 2px;
+              padding-bottom: 2px;
+              height: 45px;
+
+              .cardlist_header {
+                font-size: small;
+              }
+
+              .calcdeck_result_icon {
+                flex-basis: 50px;
+                flex-shrink: 0;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+
+                .calcdeck_result_cost {
+                  height: 30px;
+                  width: 30px;
+                  border-radius: 50%;
+                  line-height: 28px;
+                  color: $background_color;
+                  font-weight: 400;
+                  font-size: larger;
+                }
+
+                $white: #ffe082;
+                $blue: #90caf9;
+                $black: #b0bec5;
+                $red: #ef9a9a;
+                $green: #a5d6a7;
+                @mixin mana_color($color1, $color2:#111111, $color3:#111111) {
+                  @if $color2==#111111 {
+                    background: $color1;
+                  }
+                  @else {
+                    @if $color3==#111111 {
+                      background: conic-gradient($color1 180deg, $color2 180deg)
+                    }
+                    @else {
+                      background: conic-gradient($color1 120deg, $color2 120deg 240deg, $color3 240deg)
+                    }
+                  }
+                }
+
+                .mana_color_white {
+                  @include mana_color($white);
+                }
+                .mana_color_blue {
+                  @include mana_color($blue);
+                }
+                .mana_color_black {
+                  @include mana_color($black);
+                }
+                .mana_color_red {
+                  @include mana_color($red);
+                }
+                .mana_color_green {
+                  @include mana_color($green);
+                }
+
+                .mana_color_white_blue {
+                  @include mana_color($white, $blue);
+                }
+                .mana_color_white_black {
+                  @include mana_color($white, $black);
+                }
+                .mana_color_white_red {
+                  @include mana_color($white, $red);
+                }
+                .mana_color_white_green {
+                  @include mana_color($white, $green);
+                }
+                .mana_color_blue_black {
+                  @include mana_color($blue, $black);
+                }
+                .mana_color_blue_red {
+                  @include mana_color($blue, $red);
+                }
+                .mana_color_blue_green {
+                  @include mana_color($blue, $green);
+                }
+                .mana_color_black_red {
+                  @include mana_color($black, $red);
+                }
+                .mana_color_black_green {
+                  @include mana_color($black, $green);
+                }
+                .mana_color_red_green {
+                  @include mana_color($red, $green);
+                }
+
+                .mana_color_white_blue_black {
+                  @include mana_color($white, $blue, $black);
+                }
+                .mana_color_white_blue_red {
+                  @include mana_color($white, $blue, $red);
+                }
+                .mana_color_white_blue_green {
+                  @include mana_color($white, $blue, $green);
+                }
+                .mana_color_white_black_red {
+                  @include mana_color($white, $black, $red);
+                }
+                .mana_color_white_black_green {
+                  @include mana_color($white, $black, $green);
+                }
+                .mana_color_white_red_green {
+                  @include mana_color($white, $red, $green);
+                }
+                .mana_color_blue_black_red {
+                  @include mana_color($blue, $black, $red);
+                }
+                .mana_color_blue_black_green {
+                  @include mana_color($blue, $black, $green);
+                }
+                .mana_color_blue_red_green {
+                  @include mana_color($blue, $red, $green);
+                }
+                .mana_color_black_red_green {
+                  @include mana_color($black, $red, $green);
+                }
+              }
+
+              .calcdeck_result_text {
+                flex-grow: 1;
+                display: inline-flex;
+                align-items: center;
+                min-width: 0;
+
+                .calcdeck_result_name {
+                  font-size: medium;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                }
+
+                .calcdeck_result_rarity {
+                  font-size: x-small;
+                }
+              }
+
+              .calcdeck_result_qty {
+                flex-basis: 40px;
+                flex-shrink: 0;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+              }
+
+              .button_stock {
+                background-color:rgba(255, 255, 255, 0.1);
+                border-radius: 5px;
+              }
+
+              .calcdeck_result_dmp {
+                flex-basis: 140px;
+                flex-shrink: 0;
+                text-align: right;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
 }
@@ -48,5 +388,79 @@ body {
   width: 100%;
   height: 70px;
   text-align: center;
-  border: 1px solid;
+}
+
+#modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+
+.md-chip {
+  margin: 1px;
+  display: inline-block;
+  background: $md-chip-color;
+  padding: 0 12px;
+  border-radius: 32px;
+  font-size: 13px;
+  color: #000000;
+  &.md-chip-hover:hover {
+    background: #ccc;
+  }
+}
+
+.md-chip-remove {
+  display: inline-block;
+  background: #aaa;
+  border: 0;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  padding: 0;
+  margin: 0 -4px 0 4px;
+  cursor: pointer;
+  font: inherit;
+  line-height: 20px;
+  &:after {
+    color: $md-chip-color;
+    content: 'x';
+  }
+  &:hover {
+    background: #999;
+  }
+  &:active {
+    background: #777;
+  }
+}
+
+.card {
+  width: 90%;
+  margin: 10px auto;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 5px;
+  box-shadow: 0 2px 5px #000;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.card-title {
+  font-size: small;
+  margin-bottom: 20px;
+  color: $text_color_medium;
+}
+
+.card-text {
+  text-align: center;
+  font-size: 40px;
+  line-height: 1.5;
 }

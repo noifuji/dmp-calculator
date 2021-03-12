@@ -32,6 +32,7 @@ export class CloudStorage {
         d[1],
         d[2],
         d[3],
+        d[4],
         rarity,
         Number(d[6]),
         d[7],
@@ -40,7 +41,8 @@ export class CloudStorage {
         d[10],
         generateDmp,
         convertDmp,
-        Boolean(d[13])
+        d[13],
+        d[14] == "20"
       );
       jsonArray.push(tmp);
     }
